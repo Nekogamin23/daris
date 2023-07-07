@@ -1,11 +1,3 @@
-proxylist = {"78.111.90.142:4055:orangestore:inibuatreplace",
-"45.133.16.139:4055:orangestore:inibuatreplace",
-"31.44.6.251:4055:orangestore:inibuatreplace",
-"31.44.6.243:4055:orangestore:inibuatreplace",
-"31.44.5.140:4055:orangestore:inibuatreplace",
-"31.44.6.195:4055:orangestore:inibuatreplace",
-}
-
 userlist = "ORANGESTORE" 
 passlist = "GANTENGCUY"
 
