@@ -1,0 +1,64 @@
+userlist = "ORANGESTORE" 
+passlist = "GANTENGCUY"
+
+statusonline = "online :\n"
+statusoffline = "offline :\n"
+
+function ConnectList(id,pass,proxy)
+   local proxyiplist, proxyportlist, usernameproxylist, passwordproxylist = proxylist[start]:match("([^:]+):([^:]+):([^:]+):([^:]+)")
+   Proxy = {
+      HostName= proxyiplist..":".. proxyportlist,
+      Username= usernameproxylist,
+      Password= passwordproxylist,
+      Type=SOCKS5
+   }
+   connect(id,pass,Proxy)
+end
+
+function reconnectList()
+   if bot:getBotStatus() == Disconnected then
+      sleep(100)
+      totalconenct = 0
+      sleep(100)
+      while bot:getBotStatus() == Disconnected do
+         bot:reConnect()
+         sleep(3000)
+         totalconenct = totalconenct + 1
+         sleep(100)
+         if bot:getBotStatus() ~= Disconnected or totalconenct == 5 then
+            break
+         end
+      end
+   end
+end
+
+for i = 1, #proxylist do
+   sleep(100)
+   start = i
+   sleep(500)
+   ConnectList(userlist,passlist,proxy)
+   sleep(3000)
+   bot = getBot()
+   sleep(50)
+   growid = bot:getLocal().name:upper()
+   sleep(100)
+   reconnectList()
+   sleep(500)
+   if bot:getBotStatus() == Disconnected then
+      satoff = '"'..proxylist[start]..'",\n'
+      sleep(100)
+      statusoffline = statusoffline..satoff
+   else
+      saton = '"'..proxylist[start]..'",\n'
+      sleep(100)
+      statusonline = statusonline..saton
+   end
+   sleep(100)
+   ListProxy = statusonline..statusoffline
+   sleep(100)
+   bot:remove()
+end
+
+local file = io.open("proxylist.txt", "w")
+file:write(""..ListProxy.."")
+file:close()
